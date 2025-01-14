@@ -17,17 +17,37 @@ const trainings = [
   {
     name: "After office 4",
     url: "https://www.freeletics.com/en/bodyweight/workouts/custom/a590f6ff-deb0-47b2-813d-3f2542ea14e2"
+  },
+  {
+    name: "After office 5",
+    url: "https://www.freeletics.com/en/bodyweight/workouts/custom/a590f6ff-deb0-47b2-813d-3f2542ea14e2"
   }
 ];
 ---
 
 <Layout title="Victor's Freeletics Trainings">
   <main>
-    <h1>Victor's <span class="text-gradient">Freeletics</span> Trainings</h1>
-    <div class="training-grid">
+    <div class="hero">
+      <h1>Victor's <span class="text-gradient">Freeletics</span></h1>
+      <p class="subtitle">Personal Training Collection</p>
+    </div>
+    
+    <div class="training-list">
       {trainings.map((training) => (
         <a href={training.url} class="training-card" target="_blank" rel="noopener noreferrer">
-          <h2>{training.name} <span>→</span></h2>
+          <div class="card-content">
+            <div class="card-left">
+              <div class="icon">💪</div>
+              <h2>{training.name}</h2>
+            </div>
+            <div class="arrow">
+              <span>View Workout</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </div>
+          </div>
         </a>
       ))}
     </div>
@@ -37,52 +57,150 @@ const trainings = [
 <style>
   main {
     margin: auto;
-    padding: 1rem;
+    padding: 4rem 2rem;
     width: 800px;
     max-width: calc(100% - 2rem);
     color: white;
     font-size: 20px;
     line-height: 1.6;
   }
-  h1 {
-    font-size: 3rem;
-    font-weight: 700;
-    line-height: 1;
+
+  .hero {
     text-align: center;
-    margin-bottom: 2em;
+    margin-bottom: 5rem;
+    padding: 4rem 0;
+    background: linear-gradient(180deg, rgba(var(--accent), 0.15) 0%, transparent 100%);
+    border-radius: 1rem;
   }
+
+  h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1;
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+
+  .subtitle {
+    font-size: 1.5rem;
+    color: rgb(var(--accent-light));
+    margin: 1rem 0 0 0;
+    font-weight: 500;
+  }
+
   .text-gradient {
-    background-image: var(--accent-gradient);
+    background-image: linear-gradient(45deg, rgb(var(--accent)) 30%, rgb(var(--accent-light)) 60%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-size: 400%;
     background-position: 0%;
   }
-  .training-grid {
-    display: grid;
-    gap: 1rem;
-    padding: 0;
+
+  .training-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 3rem;
   }
+
   .training-card {
-    padding: 1rem;
-    background-color: #23262d;
-    border-radius: 8px;
     text-decoration: none;
     color: white;
-    opacity: 0.8;
-    transition: opacity 0.2s ease-in-out;
+    transition: all 0.3s ease;
   }
-  .training-card:hover {
-    opacity: 1;
-  }
-  .training-card h2 {
-    margin: 0;
-    font-size: 1.25rem;
+
+  .card-content {
+    background: linear-gradient(
+      45deg,
+      rgba(var(--accent-dark), 0.3),
+      rgba(35, 38, 45, 0.8)
+    );
+    border: 1px solid rgba(var(--accent), 0.1);
+    border-radius: 1rem;
+    padding: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  .training-card span {
+
+  .card-left {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .training-card:hover .card-content {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    border-color: rgba(var(--accent), 0.3);
+    background: linear-gradient(
+      45deg,
+      rgba(var(--accent-dark), 0.4),
+      rgba(35, 38, 45, 0.9)
+    );
+  }
+
+  .icon {
+    font-size: 2.5rem;
+  }
+
+  .training-card h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    line-height: 1.3;
     color: rgb(var(--accent-light));
+  }
+
+  .arrow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: rgba(var(--accent-light), 0.8);
+  }
+
+  .arrow svg {
+    transition: transform 0.3s ease;
+  }
+
+  .training-card:hover .arrow svg {
+    transform: translateX(5px);
+  }
+
+  @media (max-width: 768px) {
+    main {
+      padding: 2rem 1rem;
+    }
+
+    .hero {
+      margin-bottom: 3rem;
+      padding: 3rem 1rem;
+    }
+
+    h1 {
+      font-size: 3rem;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+    }
+
+    .card-content {
+      padding: 1.5rem;
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    .card-left {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .arrow {
+      justify-content: center;
+    }
   }
 </style>
